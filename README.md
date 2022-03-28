@@ -10,6 +10,9 @@ PyQt SVG viewer
 ## Included Packages
 * <a href="https://github.com/yjg30737/pyqt-viewer-widget.git">pyqt-viewer-widget</a>
 
+## Method Overview
+* `setSvgFile(filename: str)` to set svg file on the view
+
 ## Example
 Code Sample
 ```python

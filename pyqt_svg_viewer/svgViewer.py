@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from pyqt_style_setter import StyleSetter
 
-from svgViewerWidget import SvgViewerWidget
+from pyqt_svg_viewer.svgViewerWidget import SvgViewerWidget
 
 
 class SvgViewer(QMainWindow):

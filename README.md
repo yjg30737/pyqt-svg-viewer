@@ -2,10 +2,13 @@
 PyQt SVG viewer
 
 ## Requirements
-* PyQt5 >= 5.15.6 - For `QSvgWidget`
+* PyQt5 >= 5.15.6 - for `QSvgWidget`
 
 ## Setup
 ```pip3 install git+https://github.com/yjg30737/pyqt-svg-viewer.git --upgrade```
+
+## Included Packages
+* <a href="https://github.com/yjg30737/pyqt-viewer-widget.git">pyqt-viewer-widget</a>
 
 ## Example
 Code Sample

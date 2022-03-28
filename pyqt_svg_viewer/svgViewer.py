@@ -10,8 +10,11 @@ class SvgViewer(QMainWindow):
         self.__initUi()
 
     def __initUi(self):
-        mainWidget = SvgViewerWidget()
-        self.setCentralWidget(mainWidget)
+        self.__view = SvgViewerWidget()
+        self.setCentralWidget(self.__view)
+
+    def setSvgFile(self, filename: str):
+        self.__view.setSvgFile(filename)
 
 
 if __name__ == "__main__":

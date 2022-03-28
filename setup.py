@@ -10,6 +10,7 @@ setup(
     description='PyQt SVG viewer',
     url='https://github.com/yjg30737/pyqt-svg-viewer.git',
     install_requires=[
-        'PyQt5>=5.15.6'
+        'PyQt5>=5.15.6',
+        'pyqt-viewer-widget @ git+https://git@github.com/yjg30737/pyqt-viewer-widget.git@main'
     ]
 )

@@ -17,14 +17,4 @@ class SvgViewer(QMainWindow):
         self.__view.setSvgFile(filename)
 
 
-if __name__ == "__main__":
-    import sys
-
-    app = QApplication(sys.argv)
-    svgViewer = SvgViewer()
-    svgViewer.show()
-    StyleSetter.setWindowStyle(svgViewer)
-    sys.exit(app.exec_())
-
-
 

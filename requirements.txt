@@ -1,3 +1,4 @@
 git+https://git@github.com/yjg30737/pyqt-viewer-widget.git@main
 git+https://git@github.com/yjg30737/pyqt-style-setter.git@main
 git+https://git@github.com/yjg30737/pyqt-custom-titlebar-setter.git@main
+git+https://git@github.com/yjg30737/pyqt-description-tooltip.git@main

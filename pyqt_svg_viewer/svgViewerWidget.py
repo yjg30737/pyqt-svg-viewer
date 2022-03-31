@@ -1,6 +1,6 @@
 from pyqt_viewer_widget import ViewerWidget
 
-from pyqt_svg_viewer.SvgViewerView import SvgViewerView
+from pyqt_svg_viewer.svgViewerView import SvgViewerView
 
 
 class SvgViewerWidget(ViewerWidget):

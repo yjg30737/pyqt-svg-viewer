@@ -11,3 +11,10 @@ class SvgViewerApp(QApplication):
         StyleSetter.setWindowStyle(mainWindow)
         self.__titleBarWindow = CustomTitlebarSetter.getCustomTitleBar(mainWindow, icon_filename='ico/svg.svg')
         self.__titleBarWindow.show()
+
+
+if __name__ == "__main__":
+    import sys
+
+    app = SvgViewerApp(sys.argv)
+    app.exec_()

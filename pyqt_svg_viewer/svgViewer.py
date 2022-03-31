@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QMainWindow, QToolBar, QWidgetAction
+import os, posixpath
+
+from PyQt5.QtWidgets import QMainWindow, QToolBar, QWidgetAction, QFileDialog
 from pyqt_svg_icon_pushbutton import SvgIconPushButton
 from pyqt_description_tooltip import DescriptionToolTipGetter
 
@@ -11,14 +13,16 @@ class SvgViewer(QMainWindow):
         self.__initUi()
 
     def __initUi(self):
-        self.__view = SvgViewerWidget()
-        self.setCentralWidget(self.__view)
+        self.setWindowTitle('SVG Viewer')
+        self.__viewerWidget = SvgViewerWidget()
+        self.__viewerWidget.setExtensionsExceptForImage(['.svg'])
+        self.setCentralWidget(self.__viewerWidget)
 
         self.__setActions()
         self.__setToolBar()
 
     def setSvgFile(self, filename: str):
-        self.__view.setSvgFile(filename)
+        self.__viewerWidget.setSvgFile(filename)
 
     def __setActions(self):
         self.__loadFileAction = QWidgetAction(self)
@@ -64,13 +68,48 @@ class SvgViewer(QMainWindow):
         toolbar = QToolBar()
         toolbar.addAction(self.__loadFileAction)
         toolbar.addAction(self.__loadDirAction)
-        toolbar.addAction(self.__htmlFileListToggleAction)
         toolbar.addAction(self.__showNavigationToolbarAction)
-        toolbar.addAction(self.__srcWidgetToggleAction)
         toolbar.addAction(self.__fullScreenToggleAction)
         toolbar.setMovable(False)
         self.addToolBar(toolbar)
         toolbar.setStyleSheet('QToolBar { background-color: #888; }')
 
+    def __fullScreenToggle(self, f):
+        if f:
+            self.showFullScreen()
+        else:
+            self.showNormal()
 
+    def __loadFile(self):
+        filename = QFileDialog.getOpenFileName(self, 'Open Files', '', "SVG Files (*.svg)")
+        if filename[0]:
+            filename = filename[0]
+            dirname = os.path.dirname(filename)
+            self.__setSvgFilesOfDirectory(dirname, filename)
 
+    def __loadDir(self):
+        dirname = QFileDialog.getExistingDirectory(self, 'Open Directory', '', QFileDialog.ShowDirsOnly)
+        if dirname:
+            self.__setSvgFilesOfDirectory(dirname)
+
+    def __setSvgFilesOfDirectory(self, dirname, cur_filename=''):
+        filenames = [os.path.join(dirname, filename).replace(os.path.sep, posixpath.sep) for filename in
+                     os.listdir(dirname)
+                     if os.path.splitext(filename)[-1] == '.svg']
+        if filenames:
+            if cur_filename:
+                pass
+            else:
+                cur_filename = filenames[0]
+            cur_file_idx = filenames.index(cur_filename)
+            self.__viewerWidget.setFilenames(filenames, cur_filename=cur_filename)
+
+    def __showNavigationToolbar(self, f):
+        self.__showNavigationToolbarBtn.setChecked(f)
+        self.__viewerWidget.setBottomWidgetVisible(f)
+        if f:
+            self.__showNavigationToolbarBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Hide navigation bar',
+                                                                                           shortcut='Ctrl+B'))
+        else:
+            self.__showNavigationToolbarBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Show navigation bar',
+                                                                                           shortcut='Ctrl+B'))

@@ -1,5 +1,6 @@
-from PyQt5.QtSvg import QSvgWidget
 from pyqt_viewer_widget import ViewerWidget
+
+from pyqt_svg_viewer.SvgViewerView import SvgViewerView
 
 
 class SvgViewerWidget(ViewerWidget):
@@ -8,10 +9,6 @@ class SvgViewerWidget(ViewerWidget):
         self.__initUi()
 
     def __initUi(self):
-        mainWidget = QSvgWidget()
+        mainWidget = SvgViewerView()
         self.setView(mainWidget)
-
-    def setSvgFile(self, filename: str):
-        widget = self.getView()
-        widget.load(filename)
 

@@ -16,9 +16,7 @@ PyQt SVG viewer
 ## Example
 Code Sample
 ```python
-from PyQt5.QtWidgets import QApplication
-from pyqt_svg_viewer import SvgViewer
-
+from pyqt_svg_viewer import SvgViewerApp
 
 if __name__ == "__main__":
     import sys
@@ -29,7 +27,7 @@ if __name__ == "__main__":
 
 Result
 
-![image](https://user-images.githubusercontent.com/55078043/160336283-617857ac-9ccf-4dd5-87db-48600729c115.png)
+![image](https://user-images.githubusercontent.com/55078043/160986736-e55ee9b7-0046-4ad4-9bfc-a92d7dbc422b.png)
 
 
 

@@ -13,25 +13,18 @@ PyQt SVG viewer
 * <a href="https://github.com/yjg30737/pyqt-custom-titlebar-setter.git">pyqt-custom-titlebar-setter</a>
 * <a href="https://github.com/yjg30737/pyqt-description-tooltip.git">pyqt-description-tooltip</a>
 
-## Method Overview
-* `setSvgFile(filename: str)` to set svg file on the view
-
 ## Example
 Code Sample
 ```python
 from PyQt5.QtWidgets import QApplication
-from pyqt_style_setter import StyleSetter
 from pyqt_svg_viewer import SvgViewer
+
 
 if __name__ == "__main__":
     import sys
 
-    app = QApplication(sys.argv)
-    svgViewer = SvgViewer()
-    svgViewer.setSvgFile('capture.svg')
-    svgViewer.show()
-    StyleSetter.setWindowStyle(svgViewer)
-    sys.exit(app.exec_())
+    app = SvgViewerApp(sys.argv)
+    app.exec_()
 ```
 
 Result

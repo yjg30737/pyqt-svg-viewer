@@ -1,6 +1,6 @@
 import os, posixpath
 
-from PyQt5.QtWidgets import QMainWindow, QToolBar, QWidgetAction, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QToolBar, QWidgetAction, QFileDialog, QSplitter, QGridLayout, QWidget
 from pyqt_svg_icon_pushbutton import SvgIconPushButton
 from pyqt_description_tooltip import DescriptionToolTipGetter
 
@@ -18,7 +18,6 @@ class SvgViewer(QMainWindow):
         self.setWindowTitle('SVG Viewer')
         self.__viewerWidget = SvgViewerWidget()
         self.__viewerWidget.setExtensionsExceptForImage(['.svg'])
-        self.setCentralWidget(self.__viewerWidget)
 
         self.__srcWidget = SourceWidget()
         self.__srcWidget.closeSignal.connect(self.__srcWidgetBtnToggled)
@@ -28,6 +27,25 @@ class SvgViewer(QMainWindow):
         self.__fileListWidget.showSignal.connect(self.__showSource)
         self.__fileListWidget.removeSignal.connect(self.__removeSomeFilesFromViewer)
         self.__fileListWidget.closeSignal.connect(self.__fileListWidgetBtnToggled)
+
+        splitter = QSplitter()
+        splitter.addWidget(self.__fileListWidget)
+        splitter.addWidget(self.__viewerWidget)
+        splitter.addWidget(self.__srcWidget)
+        splitter.setSizes([200, 400, 200])
+        splitter.setChildrenCollapsible(False)
+
+        lay = QGridLayout()
+        lay.addWidget(splitter)
+        lay.setContentsMargins(5, 5, 5, 5)
+
+        mainWidget = QWidget()
+        mainWidget.setLayout(lay)
+
+        self.__fileListWidget.hide()
+        self.__srcWidget.hide()
+
+        self.setCentralWidget(mainWidget)
 
         self.__setActions()
         self.__setToolBar()

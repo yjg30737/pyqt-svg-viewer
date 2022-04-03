@@ -69,9 +69,6 @@ class SvgViewer(QMainWindow):
         self.__showSource(idx)
         self.__viewerWidget.setFocus()
 
-    def setSvgFile(self, filename: str):
-        self.__viewerWidget.setSvgFile(filename)
-
     def __setActions(self):
         self.__loadFileAction = QWidgetAction(self)
         self.__loadFileBtn = SvgIconPushButton(self)

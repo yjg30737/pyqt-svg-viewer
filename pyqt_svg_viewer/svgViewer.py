@@ -4,7 +4,8 @@ from PyQt5.QtWidgets import QMainWindow, QToolBar, QWidgetAction, QFileDialog
 from pyqt_svg_icon_pushbutton import SvgIconPushButton
 from pyqt_description_tooltip import DescriptionToolTipGetter
 
-from pyqt_svg_viewer import SourceWidget, FileWidget
+from pyqt_svg_viewer.fileWidget import FileWidget
+from pyqt_svg_viewer.sourceWidget import SourceWidget
 from pyqt_svg_viewer.svgViewerWidget import SvgViewerWidget
 
 

@@ -8,7 +8,8 @@ setup(
     license='MIT',
     packages=find_packages(),
     package_data={'pyqt_svg_viewer.ico': ['add_dir.svg', 'add_file.svg', 'close.svg', 'full_screen.svg',
-                                          'navigation_bar.svg', 'svg.svg']},
+                                          'list.svg', 'navigation_bar.svg', 'remove.svg',
+                                          'source.svg', 'svg.svg']},
     description='PyQt SVG viewer',
     url='https://github.com/yjg30737/pyqt-svg-viewer.git',
     install_requires=[

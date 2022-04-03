@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QMainWindow, QToolBar, QWidgetAction, QFileDialog
 from pyqt_svg_icon_pushbutton import SvgIconPushButton
 from pyqt_description_tooltip import DescriptionToolTipGetter
 
+from pyqt_svg_viewer import SourceWidget, FileWidget
 from pyqt_svg_viewer.svgViewerWidget import SvgViewerWidget
 
 
@@ -17,6 +18,15 @@ class SvgViewer(QMainWindow):
         self.__viewerWidget = SvgViewerWidget()
         self.__viewerWidget.setExtensionsExceptForImage(['.svg'])
         self.setCentralWidget(self.__viewerWidget)
+
+        self.__srcWidget = SourceWidget()
+        self.__srcWidget.closeSignal.connect(self.__srcWidgetBtnToggled)
+
+        self.__fileListWidget = FileWidget()
+        self.__fileListWidget.showSignal.connect(self.__showFileToViewer)
+        self.__fileListWidget.showSignal.connect(self.__showSource)
+        self.__fileListWidget.removeSignal.connect(self.__removeSomeFilesFromViewer)
+        self.__fileListWidget.closeSignal.connect(self.__fileListWidgetBtnToggled)
 
         self.__setActions()
         self.__setToolBar()
@@ -43,6 +53,16 @@ class SvgViewer(QMainWindow):
         self.__loadDirBtn.clicked.connect(self.__loadDir)
         self.__loadDirAction.setDefaultWidget(self.__loadDirBtn)
 
+        self.__fileListToggleAction = QWidgetAction(self)
+        self.__fileListToggleBtn = SvgIconPushButton(self)
+        self.__fileListToggleBtn.setIcon('ico/list.svg')
+        self.__fileListToggleBtn.setCheckable(True)
+        self.__fileListToggleBtn.setShortcut('Ctrl+L')
+        self.__fileListToggleBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Show File List',
+                                                                                shortcut='Ctrl+L'))
+        self.__fileListToggleBtn.toggled.connect(self.__fileListToggle)
+        self.__fileListToggleAction.setDefaultWidget(self.__fileListToggleBtn)
+
         self.__showNavigationToolbarAction = QWidgetAction(self)
         self.__showNavigationToolbarBtn = SvgIconPushButton(self)
         self.__showNavigationToolbarBtn.setIcon('ico/navigation_bar.svg')
@@ -53,6 +73,16 @@ class SvgViewer(QMainWindow):
                                                                                        shortcut='Ctrl+B'))
         self.__showNavigationToolbarBtn.toggled.connect(self.__showNavigationToolbar)
         self.__showNavigationToolbarAction.setDefaultWidget(self.__showNavigationToolbarBtn)
+
+        self.__srcWidgetToggleAction = QWidgetAction(self)
+        self.__srcWidgetToggleBtn = SvgIconPushButton(self)
+        self.__srcWidgetToggleBtn.setIcon('ico/source.svg')
+        self.__srcWidgetToggleBtn.setCheckable(True)
+        self.__srcWidgetToggleBtn.setShortcut('Ctrl+S')
+        self.__srcWidgetToggleBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Show Source Browser',
+                                                                                 shortcut='Ctrl+S'))
+        self.__srcWidgetToggleBtn.toggled.connect(self.__srcWidgetToggle)
+        self.__srcWidgetToggleAction.setDefaultWidget(self.__srcWidgetToggleBtn)
 
         self.__fullScreenToggleAction = QWidgetAction(self)
         self.__fullScreenToggleBtn = SvgIconPushButton(self)
@@ -68,17 +98,45 @@ class SvgViewer(QMainWindow):
         toolbar = QToolBar()
         toolbar.addAction(self.__loadFileAction)
         toolbar.addAction(self.__loadDirAction)
+        toolbar.addAction(self.__fileListToggleAction)
         toolbar.addAction(self.__showNavigationToolbarAction)
+        toolbar.addAction(self.__srcWidgetToggleAction)
         toolbar.addAction(self.__fullScreenToggleAction)
         toolbar.setMovable(False)
         self.addToolBar(toolbar)
         toolbar.setStyleSheet('QToolBar { background-color: #888; }')
+
+    def __srcWidgetToggle(self):
+        if self.__srcWidget.isHidden():
+            self.__srcWidget.show()
+            self.__srcWidgetToggleBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Hide source browser',
+                                                                                     shortcut='Ctrl+S'))
+        else:
+            self.__srcWidget.hide()
+            self.__srcWidgetToggleBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Show source browser',
+                                                                                     shortcut='Ctrl+S'))
+
+    def __fileListToggle(self, f):
+        if f:
+            self.__fileListWidget.show()
+            self.__fileListToggleBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Hide File List',
+                                                                                    shortcut='Ctrl+L'))
+        else:
+            self.__fileListWidget.hide()
+            self.__fileListToggleBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Show File List',
+                                                                                    shortcut='Ctrl+L'))
 
     def __fullScreenToggle(self, f):
         if f:
             self.showFullScreen()
         else:
             self.showNormal()
+
+    def __fileListWidgetBtnToggled(self):
+        self.__fileListToggleBtn.setChecked(self.__fileListWidget.isHidden())
+
+    def __srcWidgetBtnToggled(self):
+        self.__srcWidgetToggleBtn.setChecked(self.__srcWidget.isHidden())
 
     def __loadFile(self):
         filename = QFileDialog.getOpenFileName(self, 'Open Files', '', "SVG Files (*.svg)")

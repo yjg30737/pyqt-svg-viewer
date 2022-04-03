@@ -16,7 +16,11 @@ class SvgViewer(QMainWindow):
 
     def __initUi(self):
         self.setWindowTitle('SVG Viewer')
+
         self.__viewerWidget = SvgViewerWidget()
+        self.__viewerWidget.prevSignal.connect(self.__selectCurrentFileItemInList)
+        self.__viewerWidget.nextSignal.connect(self.__selectCurrentFileItemInList)
+        self.__viewerWidget.closeSignal.connect(self.__showNavigationToolbar)
         self.__viewerWidget.setExtensionsExceptForImage(['.svg'])
 
         self.__srcWidget = SourceWidget()

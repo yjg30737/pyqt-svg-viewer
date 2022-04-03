@@ -41,7 +41,6 @@ class SvgViewer(QMainWindow):
 
         lay = QGridLayout()
         lay.addWidget(splitter)
-        lay.setContentsMargins(5, 5, 5, 5)
 
         mainWidget = QWidget()
         mainWidget.setLayout(lay)

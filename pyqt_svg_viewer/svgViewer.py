@@ -199,6 +199,8 @@ class SvgViewer(QMainWindow):
                 cur_filename = filenames[0]
             cur_file_idx = filenames.index(cur_filename)
             self.__viewerWidget.setFilenames(filenames, cur_filename=cur_filename)
+            self.__fileListWidget.addItems(filenames, idx=cur_file_idx)
+            self.__srcWidget.setSourceOfFile(filenames[cur_file_idx])
 
     def __showNavigationToolbar(self, f):
         self.__showNavigationToolbarBtn.setChecked(f)

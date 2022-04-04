@@ -103,6 +103,9 @@ class FileWidget(QWidget):
         self.removeSignal.emit(filenames_to_remove_from_list)
         self.__allChkBox.setChecked(False)
 
+        self.__chkToggled()
+        self.__btnToggled()
+
     def close(self):
         self.closeSignal.emit()
         super().close()

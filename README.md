@@ -12,6 +12,7 @@ PyQt SVG viewer
 * <a href="https://github.com/yjg30737/pyqt-style-setter.git">pyqt-style-setter</a>
 * <a href="https://github.com/yjg30737/pyqt-custom-titlebar-setter.git">pyqt-custom-titlebar-setter</a>
 * <a href="https://github.com/yjg30737/pyqt-description-tooltip.git">pyqt-description-tooltip</a>
+* <a href="https://github.com/yjg30737/pyqt-checkbox-file-list-widget.git">pyqt-checkbox-file-list-widget</a>
 
 ## Example
 Code Sample

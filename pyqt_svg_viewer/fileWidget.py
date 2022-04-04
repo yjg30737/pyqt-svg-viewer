@@ -1,7 +1,7 @@
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtWidgets import QWidget, QCheckBox, QLabel
 
-from pyqt_checkbox_list_widget.checkBoxListWidget import CheckBoxListWidget
+from pyqt_checkbox_file_list_widget.checkBoxFileListWidget import CheckBoxFileListWidget
 from pyqt_svg_icon_pushbutton import SvgIconPushButton
 from simplePyQt5 import VerticalWidget, LeftRightWidget
 from simplePyQt5.topLeftRightWidget import TopLeftRightWidget
@@ -24,16 +24,14 @@ class FileWidget(QWidget):
         closeBtn.setToolTip('Close')
 
         self.__allChkBox = QCheckBox('Check all')
-        
-        # todo
-        # self.__onlyFileNameChkBox = QCheckBox('Show filename only')
+        self.__onlyFileNameChkBox = QCheckBox('Show filename only')
 
         self.__removeBtn = SvgIconPushButton()
         self.__removeBtn.setIcon('ico/remove.svg')
         self.__removeBtn.setToolTip('Remove')
         self.__removeBtn.clicked.connect(self.__remove)
 
-        self.__fileListWidget = CheckBoxListWidget()
+        self.__fileListWidget = CheckBoxFileListWidget()
         self.__fileListWidget.checkedSignal.connect(self.__btnToggled)
         self.__fileListWidget.itemDoubleClicked.connect(self.__showSignal)
         self.__fileListWidget.itemActivated.connect(self.__showSignal)
@@ -43,14 +41,13 @@ class FileWidget(QWidget):
         topWidget.setRightWidgets([closeBtn])
 
         bottomWidget = TopLeftRightWidget()
-        bottomWidget.setLeftWidgets([self.__allChkBox])
+        bottomWidget.setLeftWidgets([self.__allChkBox, self.__onlyFileNameChkBox])
         bottomWidget.setRightWidgets([self.__removeBtn])
         bottomWidget.addBottomWidget(self.__fileListWidget)
 
         self.__allChkBox.stateChanged.connect(self.__fileListWidget.toggleState)
-        
-        # todo
-        # self.__onlyFileNameChkBox.stateChanged.connect(self.__fileListWidget.setOnlyFileName)
+
+        self.__onlyFileNameChkBox.stateChanged.connect(self.__fileListWidget.setFilenameOnly)
 
         mainWidget = VerticalWidget()
         mainWidget.addWidgets([topWidget, bottomWidget])
@@ -64,6 +61,7 @@ class FileWidget(QWidget):
     def __chkToggled(self):
         f = self.__fileListWidget.count() > 0
         self.__allChkBox.setEnabled(f)
+        self.__onlyFileNameChkBox.setEnabled(f)
 
     def __btnToggled(self):
         f = len(self.__fileListWidget.getCheckedRows()) > 0
@@ -77,7 +75,7 @@ class FileWidget(QWidget):
         if len(items) > 0:
             pass
         else:
-            self.__fileListWidget.addItem(item)
+            self.__fileListWidget.addFilename(item)
         self.__chkToggled()
 
     def addItems(self, items: list, idx=0):
@@ -86,7 +84,7 @@ class FileWidget(QWidget):
             if len(exist_items) > 0:
                 pass
             else:
-                self.__fileListWidget.addItem(item)
+                self.__fileListWidget.addFilename(item)
         self.setCurrentItem(idx)
         self.__chkToggled()
 
@@ -98,7 +96,7 @@ class FileWidget(QWidget):
         return self.__fileListWidget.item(i)
 
     def __remove(self):
-        filenames_to_remove_from_list = [self.__fileListWidget.item(i).text() for i in self.__fileListWidget.getCheckedRows()]
+        filenames_to_remove_from_list = self.__fileListWidget.getCheckedFilenames()
         self.__fileListWidget.removeCheckedRows()
         self.removeSignal.emit(filenames_to_remove_from_list)
         self.__allChkBox.setChecked(False)

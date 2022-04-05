@@ -70,22 +70,8 @@ class FileWidget(QWidget):
     def setCurrentItem(self, idx: int):
         self.__fileListWidget.setCurrentItem(self.__fileListWidget.item(idx))
 
-    def addItem(self, item):
-        items = self.__fileListWidget.findItems(item, Qt.MatchFixedString)
-        if len(items) > 0:
-            pass
-        else:
-            self.__fileListWidget.addFilename(item)
-        self.__chkToggled()
-
-    def addItems(self, items: list, idx=0):
-        for item in items:
-            exist_items = self.__fileListWidget.findItems(item, Qt.MatchFixedString)
-            if len(exist_items) > 0:
-                pass
-            else:
-                self.__fileListWidget.addFilename(item)
-        self.setCurrentItem(idx)
+    def setFilenames(self, filenames: list, idx=0):
+        self.__fileListWidget.setFilenames(filenames, idx)
         self.__chkToggled()
 
     def __showSignal(self, item):

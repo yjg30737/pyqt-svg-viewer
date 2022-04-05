@@ -35,6 +35,7 @@ class FileWidget(QWidget):
         self.__fileListWidget.checkedSignal.connect(self.__btnToggled)
         self.__fileListWidget.itemDoubleClicked.connect(self.__showSignal)
         self.__fileListWidget.itemActivated.connect(self.__showSignal)
+        self.__fileListWidget.setExtensions(['.svg'])
 
         topWidget = LeftRightWidget()
         topWidget.setLeftWidgets([QLabel('List of files')])

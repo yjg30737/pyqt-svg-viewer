@@ -1,4 +1,4 @@
-from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QCheckBox, QLabel
 
 from pyqt_checkbox_file_list_widget.checkBoxFileListWidget import CheckBoxFileListWidget
@@ -8,7 +8,7 @@ from simplePyQt5.topLeftRightWidget import TopLeftRightWidget
 
 
 class FileWidget(QWidget):
-    showSignal = pyqtSignal(int)
+    showSignal = pyqtSignal(str)
     removeSignal = pyqtSignal(list)
     closeSignal = pyqtSignal()
 
@@ -75,12 +75,16 @@ class FileWidget(QWidget):
         self.__fileListWidget.setFilenames(filenames, idx)
         self.__chkToggled()
 
-    def __showSignal(self, item):
-        r = self.__fileListWidget.row(item)
-        self.showSignal.emit(r)
+    def getFilenameFromRow(self, r: int) -> int:
+        return self.__fileListWidget.getFilenameFromRow(r)
 
-    def getItem(self, i):
-        return self.__fileListWidget.item(i)
+    def __showSignal(self, item):
+        text = ''
+        if self.__fileListWidget.isFilenameOnly():
+            text = self.__fileListWidget.getAbsFilename(item.text())
+        else:
+            text = item.text()
+        self.showSignal.emit(text)
 
     def __remove(self):
         filenames_to_remove_from_list = self.__fileListWidget.getCheckedFilenames()

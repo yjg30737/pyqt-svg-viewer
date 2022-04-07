@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QApplication
 from pyqt_custom_titlebar_setter import CustomTitlebarSetter
 from pyqt_style_setter import StyleSetter
 
-from pyqt_list_viewer_widget.pyqt_svg_viewer import SvgViewer
+from pyqt_svg_viewer.svgViewer import SvgViewer
 
 
 class SvgViewerApp(QApplication):

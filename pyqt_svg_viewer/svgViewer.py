@@ -4,9 +4,11 @@ from PyQt5.QtWidgets import QMainWindow, QToolBar, QWidgetAction, QFileDialog, Q
 from pyqt_svg_icon_pushbutton import SvgIconPushButton
 from pyqt_description_tooltip import DescriptionToolTipGetter
 
-from pyqt_svg_viewer.fileWidget import FileWidget
 from pyqt_svg_viewer.sourceWidget import SourceWidget
-from pyqt_svg_viewer.svgViewerWidget import SvgViewerWidget
+
+from pyqt_list_viewer_widget.listViewerWidget import ListViewerWidget
+
+from pyqt_svg_viewer import SvgViewerView
 
 
 class SvgViewer(QMainWindow):
@@ -17,25 +19,20 @@ class SvgViewer(QMainWindow):
     def __initUi(self):
         self.setWindowTitle('SVG Viewer')
 
-        self.__viewerWidget = SvgViewerWidget()
-        self.__viewerWidget.prevSignal.connect(self.__selectCurrentFileItemInList)
-        self.__viewerWidget.nextSignal.connect(self.__selectCurrentFileItemInList)
-        self.__viewerWidget.closeSignal.connect(self.__showNavigationToolbar)
-        self.__viewerWidget.setWindowTitleBasedOnCurrentFileEnabled(True, self.windowTitle())
-        self.__viewerWidget.setExtensionsExceptForImage(['.svg'])
-
         self.__srcWidget = SourceWidget()
         self.__srcWidget.closeSignal.connect(self.__srcWidgetBtnToggled)
 
-        self.__fileListWidget = FileWidget()
-        self.__fileListWidget.showSignal.connect(self.__showFileToViewer)
-        self.__fileListWidget.showSignal.connect(self.__showSource)
-        self.__fileListWidget.removeSignal.connect(self.__removeSomeFilesFromViewer)
-        self.__fileListWidget.closeSignal.connect(self.__fileListWidgetBtnToggled)
+        self.__listViewerWidget = ListViewerWidget()
+        self.__listViewerWidget.closeListSignal.connect(self.__fileListWidgetBtnToggled)
+        self.__listViewerWidget.closeViewerSignal.connect(self.__showNavigationToolbar)
+        self.__listViewerWidget.setExtensions(['.svg'])
+        self.__listViewerWidget.setView(SvgViewerView())
+        self.__listViewerWidget.setWindowTitleBasedOnCurrentFileEnabled(True, self.windowTitle())
+
+        self.__fileListWidget = self.__listViewerWidget.getListWidget()
 
         splitter = QSplitter()
-        splitter.addWidget(self.__fileListWidget)
-        splitter.addWidget(self.__viewerWidget)
+        splitter.addWidget(self.__listViewerWidget)
         splitter.addWidget(self.__srcWidget)
         splitter.setSizes([200, 400, 200])
         splitter.setChildrenCollapsible(False)
@@ -178,27 +175,12 @@ class SvgViewer(QMainWindow):
         filename = QFileDialog.getOpenFileName(self, 'Open Files', '', "SVG Files (*.svg)")
         if filename[0]:
             filename = filename[0]
-            dirname = os.path.dirname(filename)
-            self.__setSvgFilesOfDirectory(dirname, filename)
+            self.__listViewerWidget.addFilenames([filename])
 
     def __loadDir(self):
         dirname = QFileDialog.getExistingDirectory(self, 'Open Directory', '', QFileDialog.ShowDirsOnly)
         if dirname:
-            self.__setSvgFilesOfDirectory(dirname)
-
-    def __setSvgFilesOfDirectory(self, dirname, cur_filename=''):
-        filenames = [os.path.join(dirname, filename).replace(os.path.sep, posixpath.sep) for filename in
-                     os.listdir(dirname)
-                     if os.path.splitext(filename)[-1] == '.svg']
-        if filenames:
-            if cur_filename:
-                pass
-            else:
-                cur_filename = filenames[0]
-            cur_file_idx = filenames.index(cur_filename)
-            self.__viewerWidget.setFilenames(filenames, cur_filename=cur_filename)
-            self.__fileListWidget.setFilenames(filenames, idx=cur_file_idx)
-            self.__srcWidget.setSourceOfFile(filenames[cur_file_idx])
+            self.__listViewerWidget.addDirectory(dirname)
 
     def __showNavigationToolbar(self, f):
         self.__showNavigationToolbarBtn.setChecked(f)

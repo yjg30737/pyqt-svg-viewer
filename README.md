@@ -8,11 +8,10 @@ PyQt SVG viewer
 ```pip3 install git+https://github.com/yjg30737/pyqt-svg-viewer.git --upgrade```
 
 ## Included Packages
-* <a href="https://github.com/yjg30737/pyqt-viewer-widget.git">pyqt-viewer-widget</a>
 * <a href="https://github.com/yjg30737/pyqt-style-setter.git">pyqt-style-setter</a>
 * <a href="https://github.com/yjg30737/pyqt-custom-titlebar-setter.git">pyqt-custom-titlebar-setter</a>
 * <a href="https://github.com/yjg30737/pyqt-description-tooltip.git">pyqt-description-tooltip</a>
-* <a href="https://github.com/yjg30737/pyqt-checkbox-file-list-widget.git">pyqt-checkbox-file-list-widget</a>
+* <a href="https://github.com/yjg30737/pyqt-list-viewer-widget.git">pyqt-list-viewer-widget</a>
 
 ## Example
 Code Sample

@@ -1,5 +1,5 @@
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QWidget, QTextEdit, QPushButton, QLabel
+from PyQt5.QtWidgets import QWidget, QTextEdit, QLabel
 from pyqt_svg_icon_pushbutton import SvgIconPushButton
 
 from simplePyQt5.topLeftRightWidget import TopLeftRightWidget

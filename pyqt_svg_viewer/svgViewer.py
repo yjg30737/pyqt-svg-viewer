@@ -1,5 +1,3 @@
-import os, posixpath
-
 from PyQt5.QtWidgets import QMainWindow, QToolBar, QWidgetAction, QFileDialog, QSplitter, QGridLayout, QWidget
 from pyqt_svg_icon_pushbutton import SvgIconPushButton
 from pyqt_description_tooltip import DescriptionToolTipGetter
@@ -8,7 +6,7 @@ from pyqt_svg_viewer.sourceWidget import SourceWidget
 
 from pyqt_list_viewer_widget.listViewerWidget import ListViewerWidget
 
-from pyqt_svg_viewer import SvgViewerView
+from pyqt_svg_viewer.svgViewerView import SvgViewerView
 
 
 class SvgViewer(QMainWindow):

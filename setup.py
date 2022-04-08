@@ -7,7 +7,7 @@ setup(
     author_email='yjg30737@gmail.com',
     license='MIT',
     packages=find_packages(),
-    package_data={'pyqt_svg_viewer.ico': ['add_dir.svg', 'add_file.svg', 'full_screen.svg',
+    package_data={'pyqt_svg_viewer.ico': ['add_dir.svg', 'add_file.svg', 'close.svg', 'full_screen.svg',
                                           'list.svg', 'navigation_bar.svg',
                                           'source.svg', 'svg.svg']},
     description='PyQt SVG viewer',

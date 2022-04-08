@@ -5,6 +5,7 @@ from pyqt_description_tooltip import DescriptionToolTipGetter
 from pyqt_svg_viewer.sourceWidget import SourceWidget
 
 from pyqt_list_viewer_widget.listViewerWidget import ListViewerWidget
+from pyqt_get_selected_filter import getSelectedFilter
 
 from pyqt_svg_viewer.svgViewerView import SvgViewerView
 
@@ -12,10 +13,15 @@ from pyqt_svg_viewer.svgViewerView import SvgViewerView
 class SvgViewer(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.__initVal()
         self.__initUi()
 
+    def __initVal(self):
+        self.__title = 'SVG Viewer'
+        self.__extensions = ['.svg']
+
     def __initUi(self):
-        self.setWindowTitle('SVG Viewer')
+        self.setWindowTitle(self.__title)
 
         self.__srcWidget = SourceWidget()
         self.__srcWidget.closeSignal.connect(self.__srcWidgetBtnToggled)
@@ -23,7 +29,7 @@ class SvgViewer(QMainWindow):
         self.__listViewerWidget = ListViewerWidget()
         self.__listViewerWidget.closeListSignal.connect(self.__fileListWidgetBtnToggled)
         self.__listViewerWidget.closeViewerSignal.connect(self.__showNavigationToolbar)
-        self.__listViewerWidget.setExtensions(['.svg'])
+        self.__listViewerWidget.setExtensions(self.__extensions)
         self.__listViewerWidget.setView(SvgViewerView())
         self.__listViewerWidget.setWindowTitleBasedOnCurrentFileEnabled(True, self.windowTitle())
 
@@ -170,7 +176,8 @@ class SvgViewer(QMainWindow):
         self.__srcWidgetToggleBtn.setChecked(self.__srcWidget.isHidden())
 
     def __loadFile(self):
-        filename = QFileDialog.getOpenFileName(self, 'Open Files', '', "SVG Files (*.svg)")
+        filename = QFileDialog.getOpenFileName(self, 'Open File', '',
+                                               f'SVG File {getSelectedFilter(self.__extensions)}')
         if filename[0]:
             filename = filename[0]
             self.__listViewerWidget.addFilenames([filename])

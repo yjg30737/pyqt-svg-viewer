@@ -195,6 +195,7 @@ class SvgViewer(QMainWindow):
 
     def __showNavigationToolbar(self, f):
         self.__showNavigationToolbarBtn.setChecked(f)
+        self.__listViewerWidget.setBottomWidgetVisible(f)
         if f:
             self.__showNavigationToolbarBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Hide navigation bar',
                                                                                            shortcut='Ctrl+B'))

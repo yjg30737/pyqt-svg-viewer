@@ -1,5 +1,5 @@
-git+https://git@github.com/yjg30737/pyqt-style-setter.git@main
-git+https://git@github.com/yjg30737/pyqt-custom-titlebar-setter.git@main
+pyqt-style-setter>=0.0.1
+pyqt-custom-titlebar-setter>=0.0.1
 git+https://git@github.com/yjg30737/pyqt-description-tooltip.git@main
 git+https://git@github.com/yjg30737/pyqt-list-viewer-widget.git@main
 git+https://git@github.com/yjg30737/pyqt-get-selected-filter.git@main

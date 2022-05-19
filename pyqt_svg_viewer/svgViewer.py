@@ -1,7 +1,7 @@
 import os
 
 from PyQt5.QtWidgets import QMainWindow, QToolBar, QWidgetAction, QFileDialog, QSplitter, QGridLayout, QWidget
-from pyqt_svg_icon_pushbutton import SvgIconPushButton
+from pyqt_svg_button import SvgButton
 from pyqt_description_tooltip import DescriptionToolTipGetter
 
 from pyqt_svg_viewer.sourceWidget import SourceWidget
@@ -76,7 +76,7 @@ class SvgViewer(QMainWindow):
 
     def __setActions(self):
         self.__loadFileAction = QWidgetAction(self)
-        self.__loadFileBtn = SvgIconPushButton(self)
+        self.__loadFileBtn = SvgButton(self)
         self.__loadFileBtn.setIcon('ico/add_file.svg')
         self.__loadFileBtn.setShortcut('Ctrl+O')
         self.__loadFileBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Open Files',
@@ -85,7 +85,7 @@ class SvgViewer(QMainWindow):
         self.__loadFileAction.setDefaultWidget(self.__loadFileBtn)
 
         self.__loadDirAction = QWidgetAction(self)
-        self.__loadDirBtn = SvgIconPushButton(self)
+        self.__loadDirBtn = SvgButton(self)
         self.__loadDirBtn.setIcon('ico/add_dir.svg')
         self.__loadDirBtn.setShortcut('Ctrl+Shift+O')
         self.__loadDirBtn.setToolTip(DescriptionToolTipGetter.getToolTip(title='Open Directory',
@@ -94,7 +94,7 @@ class SvgViewer(QMainWindow):
         self.__loadDirAction.setDefaultWidget(self.__loadDirBtn)
 
         self.__fileListToggleAction = QWidgetAction(self)
-        self.__fileListToggleBtn = SvgIconPushButton(self)
+        self.__fileListToggleBtn = SvgButton(self)
         self.__fileListToggleBtn.setIcon('ico/list.svg')
         self.__fileListToggleBtn.setCheckable(True)
         self.__fileListToggleBtn.setShortcut('Ctrl+L')
@@ -104,7 +104,7 @@ class SvgViewer(QMainWindow):
         self.__fileListToggleAction.setDefaultWidget(self.__fileListToggleBtn)
 
         self.__showNavigationToolbarAction = QWidgetAction(self)
-        self.__showNavigationToolbarBtn = SvgIconPushButton(self)
+        self.__showNavigationToolbarBtn = SvgButton(self)
         self.__showNavigationToolbarBtn.setIcon('ico/navigation_bar.svg')
         self.__showNavigationToolbarBtn.setCheckable(True)
         self.__showNavigationToolbarBtn.setChecked(True)
@@ -115,7 +115,7 @@ class SvgViewer(QMainWindow):
         self.__showNavigationToolbarAction.setDefaultWidget(self.__showNavigationToolbarBtn)
 
         self.__srcWidgetToggleAction = QWidgetAction(self)
-        self.__srcWidgetToggleBtn = SvgIconPushButton(self)
+        self.__srcWidgetToggleBtn = SvgButton(self)
         self.__srcWidgetToggleBtn.setIcon('ico/source.svg')
         self.__srcWidgetToggleBtn.setCheckable(True)
         self.__srcWidgetToggleBtn.setShortcut('Ctrl+S')
@@ -125,7 +125,7 @@ class SvgViewer(QMainWindow):
         self.__srcWidgetToggleAction.setDefaultWidget(self.__srcWidgetToggleBtn)
 
         self.__fullScreenToggleAction = QWidgetAction(self)
-        self.__fullScreenToggleBtn = SvgIconPushButton(self)
+        self.__fullScreenToggleBtn = SvgButton(self)
         self.__fullScreenToggleBtn.setIcon('ico/full_screen.svg')
         self.__fullScreenToggleBtn.setCheckable(True)
         self.__fullScreenToggleBtn.setShortcut('F11')

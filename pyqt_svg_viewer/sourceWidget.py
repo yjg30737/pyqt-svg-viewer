@@ -1,6 +1,6 @@
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QTextEdit, QLabel
-from pyqt_svg_icon_pushbutton import SvgIconPushButton
+from pyqt_svg_button import SvgButton
 
 from simplePyQt5.topLeftRightWidget import TopLeftRightWidget
 
@@ -16,7 +16,7 @@ class SourceWidget(QWidget):
         self.__srcCodeTextEdit = QTextEdit()
         self.__srcCodeTextEdit.setLineWrapMode(QTextEdit.NoWrap)
 
-        closeBtn = SvgIconPushButton()
+        closeBtn = SvgButton()
         closeBtn.clicked.connect(self.close)
         closeBtn.setToolTip('Close')
         closeBtn.setIcon('ico/close.svg')

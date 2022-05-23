@@ -16,7 +16,7 @@ class SourceWidget(QWidget):
         self.__srcCodeTextEdit = QTextEdit()
         self.__srcCodeTextEdit.setLineWrapMode(QTextEdit.NoWrap)
 
-        closeBtn = SvgButton()
+        closeBtn = SvgButton(self)
         closeBtn.clicked.connect(self.close)
         closeBtn.setToolTip('Close')
         closeBtn.setIcon('ico/close.svg')

@@ -41,7 +41,7 @@ class SvgViewer(QMainWindow):
         splitter = QSplitter()
         splitter.addWidget(self.__listViewerWidget)
         splitter.addWidget(self.__srcWidget)
-        splitter.setSizes([200, 400, 200])
+        splitter.setSizes([400, 200])
         splitter.setChildrenCollapsible(False)
 
         lay = QGridLayout()

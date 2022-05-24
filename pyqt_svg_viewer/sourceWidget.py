@@ -26,7 +26,7 @@ class SourceWidget(QWidget):
         mainWidget.setRightWidgets([closeBtn])
         mainWidget.addBottomWidget(self.__srcCodeTextEdit)
         lay = mainWidget.layout()
-        lay.setContentsMargins(1, 0, 0, 0)
+        lay.setContentsMargins(5, 5, 5, 5)
 
         self.setLayout(lay)
 

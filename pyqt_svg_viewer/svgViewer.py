@@ -44,16 +44,10 @@ class SvgViewer(QMainWindow):
         splitter.setSizes([400, 200])
         splitter.setChildrenCollapsible(False)
 
-        lay = QGridLayout()
-        lay.addWidget(splitter)
-
-        mainWidget = QWidget()
-        mainWidget.setLayout(lay)
-
         self.__fileListWidget.hide()
         self.__srcWidget.hide()
 
-        self.setCentralWidget(mainWidget)
+        self.setCentralWidget(splitter)
 
         self.__setActions()
         self.__setToolBar()

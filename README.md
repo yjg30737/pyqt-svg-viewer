@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
 Result
 
-![image](https://user-images.githubusercontent.com/55078043/172029072-1c7dec00-f471-4631-9ab2-04b25af8b6af.png)
+![image](https://user-images.githubusercontent.com/55078043/172029084-ad0fec80-f403-48df-81ce-ce5120b85ca3.png)
 
 
 
